@@ -26,6 +26,13 @@ function postBuild(): Plugin {
         urls.map(u => `  <url><loc>${u.loc}</loc><lastmod>${u.mod}</lastmod><priority>${u.pr}</priority></url>`).join("\n") +
         `\n</urlset>\n`
       fs.writeFileSync("dist/sitemap.xml", xml)
+      // Real pages for every route, so GitHub Pages answers 200 (not the 404 fallback) — better for Google and link previews.
+      const html = fs.readFileSync("dist/index.html", "utf8")
+      const routes = ["portfolio", ...data.projects.filter((p: { hidden?: boolean }) => !p.hidden).map((p: { id: string }) => `portfolio/${p.id}`)]
+      for (const r of routes) {
+        fs.mkdirSync(`dist/${r}`, { recursive: true })
+        fs.writeFileSync(`dist/${r}/index.html`, html)
+      }
     },
   }
 }
