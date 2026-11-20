@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Apply saved language + theme before first paint (prevents layout/theme flash).
+      try {
+        var l = localStorage.getItem('language'), t = localStorage.getItem('theme');
+        if (l === 'ar') { document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; }
+        document.documentElement.classList.add(t === 'light' ? 'light' : 'dark');
+        if (localStorage.getItem('motion') === 'off') document.documentElement.classList.add('reduce-motion');
+      } catch (e) {}
+    </script>
+
+    <title>Mazen Khaled | Graphic Designer & Video Editor</title>
+    <meta name="description" content="Mazen Khaled — graphic designer, motion designer and video editor based in Giza, Egypt. Brand identities, social media ads, esports branding and cinematic video. مصمم جرافيك وموشن ومونتير محترف." />
+    <meta name="author" content="Mazen Khaled" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://mazen.manhaaji.com/" />
+
+    <link rel="icon" type="image/png" href="/assets/img/logo-gold.png" />
+    <link rel="apple-touch-icon" href="/assets/img/logo-gold.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Alexandria:wght@300;400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mazen Khaled" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_EG" />
+    <meta property="og:url" content="https://mazen.manhaaji.com/" />
+    <meta property="og:title" content="Mazen Khaled | Graphic Designer & Video Editor" />
+    <meta property="og:description" content="Brand identities, social media ads, motion graphics and cinematic video editing." />
+    <meta property="og:image" content="https://mazen.manhaaji.com/images/og-cover.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://mazen.manhaaji.com/images/og-cover.jpg" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://mazen.manhaaji.com/#person",
+          "name": "Mazen Khaled",
+          "jobTitle": "Graphic Designer, Motion Designer & Video Editor",
+          "url": "https://mazen.manhaaji.com/",
+          "image": "https://mazen.manhaaji.com/images/Mazen.jpeg",
+          "address": { "@type": "PostalAddress", "addressLocality": "Giza", "addressCountry": "EG" },
+          "sameAs": [
+            "https://www.facebook.com/mazen1862002",
+            "https://www.instagram.com/mazen.ve",
+            "https://t.me/Mazen_ve"
+          ],
+          "knowsAbout": ["Graphic Design", "Brand Identity", "Motion Graphics", "Video Editing", "UI/UX Design", "Esports Branding"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://mazen.manhaaji.com/#website",
+          "url": "https://mazen.manhaaji.com/",
+          "name": "Mazen Khaled Portfolio",
+          "inLanguage": ["en", "ar"],
+          "publisher": { "@id": "https://mazen.manhaaji.com/#person" }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>Mazen Khaled — Graphic Designer & Video Editor. Please enable JavaScript to view the portfolio.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,593 @@
+{
+  "$note": "Edited by Mazen Studio (the desktop CMS). Safe to hand-edit too.",
+  "settings": {
+    "intro": true,
+    "showreel": "/images/intro.webm",
+    "portrait": "/assets/site/a4d55a5ef883.webp",
+    "location": "Giza, Egypt",
+    "since": "2018",
+    "yearsExperience": 8,
+    "disciplines": 6
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/mazen.ve",
+    "facebook": "https://www.facebook.com/mazen1862002",
+    "telegram": "https://t.me/Mazen_ve",
+    "whatsapp": "https://wa.me/201019094352"
+  },
+  "tools": [
+    {
+      "mono": "Ps",
+      "name": "Photoshop"
+    },
+    {
+      "mono": "Ai",
+      "name": "Illustrator"
+    },
+    {
+      "mono": "Fg",
+      "name": "Figma"
+    },
+    {
+      "mono": "Ae",
+      "name": "After Effects"
+    },
+    {
+      "mono": "Pr",
+      "name": "Premiere Pro"
+    },
+    {
+      "mono": "Dv",
+      "name": "DaVinci Resolve"
+    },
+    {
+      "mono": "C4",
+      "name": "Cinema 4D"
+    },
+    {
+      "mono": "Bl",
+      "name": "Blender"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "visible": true
+    },
+    {
+      "id": "about",
+      "type": "about",
+      "visible": true
+    },
+    {
+      "id": "portfolio",
+      "type": "portfolio",
+      "visible": true
+    },
+    {
+      "id": "services",
+      "type": "services",
+      "visible": true
+    },
+    {
+      "id": "testimonials",
+      "type": "testimonials",
+      "visible": false
+    },
+    {
+      "id": "contact",
+      "type": "contact",
+      "visible": true
+    }
+  ],
+  "testimonials": [],
+  "categories": [
+    {
+      "id": "brand-identity",
+      "prefix": "BI",
+      "name": {
+        "en": "Brand Identity",
+        "ar": "هوية العلامة التجارية"
+      },
+      "desc": {
+        "en": "Building complete visual systems from logos to brand guidelines.",
+        "ar": "بناء الأنظمة البصرية المتكاملة من الشعارات حتى أدلة الهوية."
+      }
+    },
+    {
+      "id": "ui-ux",
+      "prefix": "UI",
+      "name": {
+        "en": "UI/UX Design",
+        "ar": "تصميم واجهات المستخدم"
+      },
+      "desc": {
+        "en": "Designing digital user interfaces and smart user experience solutions.",
+        "ar": "تصميم واجهات المستخدم الرقمية وحلول تجربة المستخدم الذكية."
+      }
+    },
+    {
+      "id": "esports",
+      "prefix": "EP",
+      "name": {
+        "en": "Esports Branding",
+        "ar": "هوية الألعاب الإلكترونية"
+      },
+      "desc": {
+        "en": "Visual identity for the esports sector and competitive teams.",
+        "ar": "الهوية البصرية الموجهة لقطاع الألعاب الإلكترونية والفرق التنافسية."
+      }
+    },
+    {
+      "id": "motion-video",
+      "prefix": "MV",
+      "name": {
+        "en": "Motion & Video",
+        "ar": "فيديو وموشن جرافيك"
+      },
+      "desc": {
+        "en": "Logo animation, video editing, and interactive storytelling.",
+        "ar": "تحريك الشعارات، مونتاج الفيديوهات، والقصص البصرية التفاعلية."
+      }
+    },
+    {
+      "id": "packaging",
+      "prefix": "PK",
+      "name": {
+        "en": "Packaging Design",
+        "ar": "تصميم التغليف"
+      },
+      "desc": {
+        "en": "Innovative packaging and artistic touches for luxury brands.",
+        "ar": "تصميم أغلفة المنتجات المبتكرة واللمسات الفنية للماركات الفاخرة."
+      }
+    },
+    {
+      "id": "social-media",
+      "prefix": "SM",
+      "name": {
+        "en": "Social Media Ads",
+        "ar": "إعلانات التواصل الاجتماعي"
+      },
+      "desc": {
+        "en": "Engaging visual content to boost social media interaction.",
+        "ar": "ابتكار محتوى بصري جذاب لمنصات التواصل الاجتماعي لزيادة التفاعل."
+      }
+    }
+  ],
+  "text": {
+    "en": {
+      "nav": {
+        "home": "Home",
+        "about": "About",
+        "portfolio": "Portfolio",
+        "services": "Services",
+        "testimonials": "Testimonials",
+        "contact": "Contact",
+        "letsTalk": "Let's Talk"
+      },
+      "theme": {
+        "light": "Light Mode",
+        "dark": "Dark Mode"
+      },
+      "hero": {
+        "studio": "Mazen Portfolio",
+        "tagline": "The Design Godfather | Crafting Cinematic Visuals & High-End Brand Identities",
+        "subtitle": "Visual Creativity Expert & Storyteller",
+        "viewShowreel": "View Showreel",
+        "exploreWork": "Explore Work",
+        "scroll": "Scroll Down",
+        "valueLine": "I design brands and cut films that make people stop scrolling.",
+        "roles": "Graphic Designer · Motion · Video Editor",
+        "dragHint": "Drag the table — tap any frame to open its project"
+      },
+      "about": {
+        "subtitle": "About Me",
+        "title": "The Creative Mind",
+        "greeting": "Hi, I'm Mazen Khaled",
+        "description": "I am a multidisciplinary designer with a passion for motion. For over six years, I've helped brands find their voice through compelling visuals and cinematic editing. From esports arenas to luxury brand launches, I bring a unique blend of technical precision and artistic flair.",
+        "approach": "My approach combines strategic thinking with creative execution, ensuring every project not only looks stunning but also achieves its intended goals. I believe in the power of visual storytelling to transform brands and captivate audiences.",
+        "statement": "I'm Mazen — a multidisciplinary *designer* and *video* *editor* who helps brands find their voice through bold identities and cinematic storytelling.",
+        "toolkit": "Toolkit",
+        "groups": {
+          "design": "Design",
+          "motion": "Motion & Film",
+          "threeD": "3D"
+        },
+        "findMe": "Find me on",
+        "availableFor": "Available for",
+        "freelanceWork": "Freelance Work",
+        "expertise": "Expertise",
+        "yearsExperience": "6+ Years Experience",
+        "globalClients": "Global Client Base",
+        "role": "designer & editor",
+        "available": "Available",
+        "profile": "Profile",
+        "facts": [
+          {
+            "k": "Name",
+            "v": "Mazen Khaled"
+          },
+          {
+            "k": "Based in",
+            "v": "Giza, Egypt"
+          },
+          {
+            "k": "Experience",
+            "v": "6+ years"
+          },
+          {
+            "k": "Focus",
+            "v": "Identity · Motion · Editing"
+          },
+          {
+            "k": "Languages",
+            "v": "Arabic · English"
+          },
+          {
+            "k": "Status",
+            "v": "Open to new projects"
+          }
+        ]
+      },
+      "stats": {
+        "yearsExperience": "Years Experience",
+        "projectsDone": "Projects Done",
+        "happyClients": "Happy Clients",
+        "awardsWon": "Awards Won",
+        "caseStudies": "Published case studies",
+        "disciplines": "Creative disciplines",
+        "languages": "Languages — Arabic & English"
+      },
+      "social": {
+        "title": "Social Media",
+        "followers": "Followers",
+        "followMe": "Follow Me",
+        "contactMe": "Send Message",
+        "contactPrompt": "Let’s discuss your next project!",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "email": "Email"
+      },
+      "services": {
+        "title": "What I Do",
+        "subtitle": "End-to-end creative services crafted to elevate your brand and turn your vision into reality.",
+        "intro": "End-to-end creative services crafted to elevate your brand and turn your vision into reality.",
+        "cta": "Have a project in mind? Let's discuss how I can help bring your vision to life.",
+        "getInTouch": "Get in Touch",
+        "learnMore": "Learn More",
+        "items": {
+          "videoEditing": {
+            "title": "Video Editing",
+            "description": "Professional video editing with cinematic color grading, smooth transitions, and compelling storytelling that captivates your audience.",
+            "tags": [
+              "Color Grading",
+              "Motion Graphics",
+              "Sound Design",
+              "4K/8K Editing"
+            ]
+          },
+          "motionGraphics": {
+            "title": "Motion Graphics",
+            "description": "Dynamic motion graphics and visual effects that bring your brand to life with stunning animations and creative transitions.",
+            "tags": [
+              "2D Animation",
+              "3D Motion",
+              "Logo Animation",
+              "Title Sequences"
+            ]
+          },
+          "colorGrading": {
+            "title": "Color Grading",
+            "description": "Expert color correction and grading to achieve the perfect mood and visual consistency across all your video content.",
+            "tags": [
+              "Cinematic Look",
+              "LUT Creation",
+              "Scene Matching",
+              "HDR Grading"
+            ]
+          },
+          "graphicDesign": {
+            "title": "Graphic Design",
+            "description": "Stunning visual designs for digital and print media, from social media graphics to comprehensive brand collateral.",
+            "tags": [
+              "Social Media",
+              "Print Design",
+              "UI/UX Design",
+              "Illustrations"
+            ]
+          },
+          "brandIdentity": {
+            "title": "Brand Identity",
+            "description": "Complete brand identity systems including logos, color palettes, typography, and brand guidelines that define your visual presence.",
+            "tags": [
+              "Logo Design",
+              "Brand Guidelines",
+              "Visual Systems",
+              "Rebranding"
+            ]
+          },
+          "threeD": {
+            "title": "3D Visualization",
+            "description": "Photorealistic 3D renders and animations for products, architecture, and creative concepts that push visual boundaries.",
+            "tags": [
+              "Product Renders",
+              "Architectural Viz",
+              "Character Modeling",
+              "Animation"
+            ]
+          }
+        }
+      },
+      "portfolio": {
+        "title": "My Portfolio",
+        "subtitle": "A curated selection of my finest work across branding, video editing, and visual design",
+        "viewAll": "View All Projects",
+        "viewProject": "View Project",
+        "new": "New",
+        "projectDetails": {
+          "projectGallery": "Project Gallery",
+          "animation": "Animation",
+          "viewLive": "View Live Project"
+        }
+      },
+      "testimonials": {
+        "title": "Client Testimonials",
+        "subtitle": "What my clients say about working together"
+      },
+      "contact": {
+        "sectionLabel": "Contact",
+        "title": "Get in Touch",
+        "subtitle": "Have a project in mind? Let's create something extraordinary together.",
+        "form": {
+          "name": "Name",
+          "email": "Email",
+          "subject": "Subject",
+          "message": "Message",
+          "send": "Send Message",
+          "sending": "Sending...",
+          "success": "Message sent successfully!",
+          "error": "Failed to send message. Please try again."
+        },
+        "info": {
+          "email": "Email",
+          "phone": "Phone",
+          "address": "Address"
+        },
+        "email": "mazen186venom@gmail.com",
+        "phone": "+201019094352",
+        "address": "38 Gamal Abdel Nasser St., El Amara Square, Imbaba, Giza, Egypt"
+      },
+      "footer": {
+        "tagline": "Crafting visual excellence through bold design and uncompromising quality.",
+        "quickLinks": "Quick Links",
+        "legal": "Legal",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "copyright": "Mazen Khaled. All rights reserved."
+      },
+      "scrollToTop": "Scroll to Top",
+      "close": "Close",
+      "comingSoon": "Coming Soon"
+    },
+    "ar": {
+      "nav": {
+        "home": "الرئيسية",
+        "about": "عني",
+        "portfolio": "أعمالي",
+        "services": "خدماتي",
+        "testimonials": "شهادات العملاء",
+        "contact": "تواصل",
+        "letsTalk": "لنتحدث"
+      },
+      "theme": {
+        "light": "الوضع المضيء",
+        "dark": "الوضع المظلم"
+      },
+      "hero": {
+        "studio": "مازن خالد",
+        "tagline": "أُبدع قصصاً بصرية تُلهم العالم.. وأُحوّل الأفكار إلى تصميمات استثنائية وتجارب سينمائية مبهرة.",
+        "subtitle": "خبير إبداع بصري وراوي للقصص",
+        "viewShowreel": "شاهد معرض أعمالي",
+        "exploreWork": "تصفح المشاريع",
+        "scroll": "اكتشف المزيد",
+        "valueLine": "بصمم هويات وبمنتج أفلام بتخلّي الناس توقف السكرول.",
+        "roles": "مصمم جرافيك · موشن · مونتير",
+        "dragHint": "اسحب الطاولة — ودوس على أي فريم يفتح المشروع"
+      },
+      "about": {
+        "subtitle": "نبذة عني",
+        "title": "العقل المُبدع",
+        "greeting": "أهلاً، أنا مازن خالد.",
+        "description": "مصمم متعدد التخصصات أمتلك شغفاً كبيراً بفنون الحركة والمونتاج. على مدار أكثر من ست سنوات، ساعدت العديد من العلامات التجارية على إبراز هويتها من خلال محتوى بصري جذاب ومونتاج سينمائي احترافي. بدايةً من ساحات الألعاب الإلكترونية (Esports) وصولاً إلى إطلاق العلامات التجارية الفاخرة، أقدم مزيجاً فريداً يجمع بين الدقة التقنية واللمسة الفنية الإبداعية.",
+        "approach": "يعتمد أسلوبي على الدمج بين التفكير الاستراتيجي والتنفيذ الإبداعي، لأضمن أن يخرج كل مشروع بصورة مبهرة ويحقق أهدافه بدقة. أؤمن تماماً بقوة 'السرد البصري' في إحداث نقلة نوعية للعلامات التجارية وأسر انتباه الجمهور.",
+        "statement": "أنا مازن — *مصمم* *ومونتير* متعدد التخصصات، بساعد العلامات التجارية تلاقي صوتها من خلال هويات بصرية جريئة وسرد سينمائي.",
+        "toolkit": "أدواتي",
+        "groups": {
+          "design": "تصميم",
+          "motion": "موشن وفيديو",
+          "threeD": "ثري دي"
+        },
+        "findMe": "تابعني على",
+        "expertise": "خبراتي",
+        "availableFor": "متاح للعمل على",
+        "freelanceWork": "المشاريع المستقلة",
+        "yearsExperience": "+6 سنوات خبرة",
+        "globalClients": "قاعدة عملاء عالمية",
+        "role": "مصمم ومونتير",
+        "available": "متاح",
+        "profile": "نبذة",
+        "facts": [
+          {
+            "k": "الاسم",
+            "v": "مازن خالد"
+          },
+          {
+            "k": "المكان",
+            "v": "الجيزة، مصر"
+          },
+          {
+            "k": "الخبرة",
+            "v": "+6 سنين"
+          },
+          {
+            "k": "التخصص",
+            "v": "هوية بصرية · موشن · مونتاج"
+          },
+          {
+            "k": "اللغات",
+            "v": "العربية · الإنجليزية"
+          },
+          {
+            "k": "الحالة",
+            "v": "متاح لمشاريع جديدة"
+          }
+        ]
+      },
+      "stats": {
+        "yearsExperience": "سنوات من الخبرة",
+        "projectsDone": "مشروعاً منجزاً",
+        "happyClients": "شركاء النجاح",
+        "awardsWon": "جوائز حصدتها",
+        "caseStudies": "مشروع منشور بالتفاصيل",
+        "disciplines": "تخصصات إبداعية",
+        "languages": "لغتين — عربي وإنجليزي"
+      },
+      "social": {
+        "title": "وسائل التواصل",
+        "followers": "متابع",
+        "followMe": "تابعني",
+        "contactMe": "إرسال رسالة",
+        "contactPrompt": "دعنا نناقش مشروعك القادم!",
+        "whatsapp": "واتساب",
+        "facebook": "فيسبوك",
+        "instagram": "إنستجرام",
+        "telegram": "تيليجرام",
+        "email": "بريد إلكتروني"
+      },
+      "services": {
+        "title": "ماذا أُقدم؟",
+        "subtitle": "حلول إبداعية متكاملة ومُصممة خصيصاً للارتقاء بعلامتك التجارية وتحويل رؤيتك إلى واقع ملموس.",
+        "intro": "حلول إبداعية متكاملة ومُصممة خصيصاً للارتقاء بعلامتك التجارية وتحويل رؤيتك إلى واقع ملموس.",
+        "cta": "عندك فكرة مشروع؟ خلينا نتناقش إزاي أقدر أساعدك تحوّل رؤيتك لواقع ملموس.",
+        "getInTouch": "ابدأ مشروعك الآن",
+        "learnMore": "اكتشف المزيد",
+        "items": {
+          "videoEditing": {
+            "title": "تحرير الفيديو (المونتاج)",
+            "description": "مونتاج احترافي بلمسة سينمائية، انتقالات سلسة، وسرد بصري جذاب للقصة.",
+            "tags": [
+              "تصحيح الألوان",
+              "الرسوم المتحركة",
+              "تصميم الصوت",
+              "مونتاج 4K/8K"
+            ]
+          },
+          "motionGraphics": {
+            "title": "الموشن جرافيك",
+            "description": "تصميمات موشن جرافيك حيوية وتأثيرات بصرية تمنح علامتك التجارية الحياة من خلال تحريكات مذهلة.",
+            "tags": [
+              "رسوم ثنائية الأبعاد",
+              "حركة ثلاثية الأبعاد",
+              "رسوم الشعارات",
+              "عناوين الفتحة"
+            ]
+          },
+          "colorGrading": {
+            "title": "التلوين السينمائي",
+            "description": "تصحيح وتدرج لوني احترافي للوصول إلى الأجواء المثالية والتناسق البصري المطلوب.",
+            "tags": [
+              "المظهر السينمائي",
+              "إنشاء LUT",
+              "مطابقة المشاهد",
+              "تدريج HDR"
+            ]
+          },
+          "graphicDesign": {
+            "title": "التصميم الجرافيكي",
+            "description": "تصميمات بصرية ساحرة للمنصات الرقمية والمطبوعات، بدءاً من تصاميم السوشيال ميديا وحتى المطبوعات التجارية.",
+            "tags": [
+              "وسائل التواصل",
+              "التصميم المطبوع",
+              "تصميم UI/UX",
+              "الرسوم التوضيحية"
+            ]
+          },
+          "brandIdentity": {
+            "title": "الهوية البصرية",
+            "description": "أنظمة هوية بصرية متكاملة تشمل تصميم الشعارات، لوحات الألوان، والأدلة الإرشادية للعلامة التجارية.",
+            "tags": [
+              "تصميم الشعارات",
+              "إرشادات العلامة",
+              "الأنظمة البصرية",
+              "إعادة التصميم"
+            ]
+          },
+          "threeD": {
+            "title": "التصميم ثلاثي الأبعاد",
+            "description": "تصميمات ورندرات ثلاثية الأبعاد واقعية للمنتجات، المشاريع المعمارية، والأفكار الإبداعية.",
+            "tags": [
+              "رسوم المنتجات",
+              "التصور المعماري",
+              "نمذجة الشخصيات",
+              "الرسوم المتحركة"
+            ]
+          }
+        }
+      },
+      "portfolio": {
+        "title": "أعمالي",
+        "subtitle": "مجموعة مختارة من أروع أعمالي في مجال العلامات التجارية ومونتاج الفيديو والتصميم البصري",
+        "viewAll": "عرض جميع المشاريع",
+        "viewProject": "عرض المشروع",
+        "new": "جديد",
+        "projectDetails": {
+          "projectGallery": "معرض المشروع",
+          "animation": "الرسوم المتحركة",
+          "viewLive": "عرض المشروع المباشر"
+        }
+      },
+      "testimonials": {
+        "title": "آراء العملاء",
+        "subtitle": "ماذا يقول عملائي عن العمل معي"
+      },
+      "contact": {
+        "sectionLabel": "تواصل",
+        "title": "ابدأ مشروعك الآن",
+        "subtitle": "عندك فكرة مشروع؟ خلينا نتناقش إزاي أقدر أساعدك تحوّل رؤيتك لواقع ملموس.",
+        "form": {
+          "name": "الاسم",
+          "email": "البريد الإلكتروني",
+          "subject": "الموضوع",
+          "message": "الرسالة",
+          "send": "إرسال الرسالة",
+          "sending": "جاري الإرسال...",
+          "success": "تم إرسال الرسالة بنجاح!",
+          "error": "فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى."
+        },
+        "info": {
+          "email": "البريد الإلكتروني",
+          "phone": "الهاتف",
+          "address": "العنوان"
+        },
+        "email": "mazen186venom@gmail.com",
+        "phone": "+201019094352",
+        "address": "38 شارع جمال عبد الناصر، ميدان العمارة، إمبابة، الجيزة، مصر"
+      },
+      "footer": {
+        "tagline": "صناعة التميّز البصري بتصميم جريء وجودة بلا تنازلات.",
+        "quickLinks": "روابط سريعة",
+        "legal": "قانوني",
+        "privacyPolicy": "سياسة الخصوصية",
+        "termsOfService": "شروط الخدمة",
+        "copyright": "مازن خالد. جميع الحقوق محفوظة."
+      },
+      "scrollToTop": "الصعود للأعلى",
+      "close": "إغلاق",
+      "comingSoon": "قريباً"
+    }
+  }
+}
