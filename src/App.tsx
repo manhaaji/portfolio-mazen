@@ -22,6 +22,7 @@ import { HomePage } from './pages/HomePage';
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage').then(m => ({ default: m.PortfolioPage })));
 const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage').then(m => ({ default: m.ProjectDetailPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const ReviewsLayer = lazy(() => import('./components/Reviews').then(m => ({ default: m.ReviewsLayer })));
 
 // Page transition: the outgoing page dims away, then a gold curtain carrying
 // the destination's name lifts off the incoming page (a cut, not a fade).
@@ -175,6 +176,11 @@ function AppContent() {
             <AnimatedRoutes />
           </Suspense>
           <ContextMenu />
+          {!showIntro && (
+            <Suspense fallback={null}>
+              <ReviewsLayer />
+            </Suspense>
+          )}
         </Router>
       </div>
       <CustomCursor />

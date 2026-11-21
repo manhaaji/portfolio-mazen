@@ -13,7 +13,10 @@ export const SOCIAL = content.social as {
 };
 
 export const SITE = {
-  showTestimonials: sectionVisible('testimonials') && content.testimonials.length > 0,
+  // With visitor reviews on, the section stays up even before the first quote (it invites one).
+  showTestimonials:
+    sectionVisible('testimonials') &&
+    (content.testimonials.length > 0 || !!(content.settings.firebase?.apiKey && content.settings.reviews !== false)),
   intro: content.settings.intro !== false,
   showreel: content.settings.showreel || '/images/intro.webm',
   portrait: content.settings.portrait || '/images/Mazen.jpeg',

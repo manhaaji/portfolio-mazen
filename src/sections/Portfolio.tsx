@@ -4,9 +4,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Play } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { projects, projectCover, projectTexts, type Project } from '../data/projects';
+import { projects, projectCover, projectSrcSet, projectTexts, type Project } from '../data/projects';
 import { Magnetic } from '../components/motion/Primitives';
-import { useDelayedPreview, PreviewRing } from '../components/DelayedPreview';
+import { useDelayedPreview, useInViewPreview, PreviewRing } from '../components/DelayedPreview';
 import { prefersReducedMotion } from '../lib/scroll';
 import { splitTitle } from '../lib/title';
 
@@ -19,14 +19,20 @@ const pad = (n: number) => String(n).padStart(2, '0');
 function ReelPanel({ project, index, total }: { project: Project; index: number; total: number }) {
   const { t, language } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
   const preview = useDelayedPreview(videoRef);
+  useInViewPreview(mediaRef, preview, !!project.animationLink);
   const title = t(`portfolio.projects.${project.id}.title`);
   const services = projectTexts(language)[project.id]?.services || [];
+  const [cw, ch] = project.sizes[0] || [16, 9];
+  const r = cw / ch;
 
   return (
     <Link
       to={`/portfolio/${project.id}`}
-      className="reel-panel group relative shrink-0 w-[80vw] sm:w-[62vw] lg:w-[min(44vw,760px)] block"
+      className="reel-panel group relative shrink-0 block snap-center"
+      // The frame keeps the cover's own shape; it is as wide as the screen allows without getting taller than ~half of it.
+      style={{ width: `min(86vw, 760px, calc(46svh * ${r}))` }}
       data-cursor={project.animationLink ? 'Play' : 'View'}
       onPointerEnter={() => project.animationLink && preview.start()}
       onPointerLeave={preview.stop}
@@ -41,14 +47,17 @@ function ReelPanel({ project, index, total }: { project: Project; index: number;
         <div className="pro-frame-bar" dir="ltr">
           <span className="flex gap-1.5"><i /><i /><i /></span>
           <span className="truncate">{project.id} · {project.animationLink ? 'MOTION + STILLS' : 'STILLS'}</span>
-          {project.animationLink ? <span className="pro-rec">● REC</span> : <span className="opacity-50">4:3</span>}
+          {project.animationLink ? <span className="pro-rec">● REC</span> : <span className="opacity-50">{project.imagesCount} FR</span>}
         </div>
-        <div className="pro-frame-media relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-auto lg:h-[min(46vh,440px)] max-h-[48svh] overflow-hidden bg-card">
+        <div ref={mediaRef} className="pro-frame-media relative overflow-hidden bg-card" style={{ aspectRatio: `${cw} / ${ch}` }}>
           <img
             src={projectCover(project)}
+            srcSet={projectSrcSet(project, 0)}
+            sizes="(min-width: 768px) 760px, 86vw"
             alt={title}
             loading="lazy"
-            className="reel-img absolute inset-y-0 -inset-x-[8%] w-[116%] h-full object-cover transition-[filter] duration-700 group-hover:brightness-110"
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 group-hover:brightness-110 group-hover:scale-[1.02]"
           />
           {project.animationLink && (
             <video
@@ -58,7 +67,7 @@ function ReelPanel({ project, index, total }: { project: Project; index: number;
               loop
               playsInline
               preload="none"
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${preview.state === 'playing' ? 'opacity-100' : 'opacity-0'}`}
+              className={`absolute inset-0 w-full h-full object-contain bg-black transition-opacity duration-700 ${preview.state === 'playing' ? 'opacity-100' : 'opacity-0'}`}
             />
           )}
           <PreviewRing state={preview.state} label={language === 'ar' ? 'معاينة' : 'Preview'} />
@@ -103,10 +112,23 @@ export function Portfolio() {
   const list = projects.slice(0, HOME_LIMIT);
   const [staticReel] = useState(() => prefersReducedMotion());
 
+  // Phones/tablets: the reel is a native side-swipe strip; its progress line follows the swipe.
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const onScroll = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      if (progress.current && max > 0) progress.current.style.transform = `scaleX(${Math.abs(el.scrollLeft) / max})`;
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
   useEffect(() => {
     if (!section.current || !track.current || prefersReducedMotion()) return;
     const mm = gsap.matchMedia();
-    mm.add('(min-width: 0px)', () => {
+    // Scroll-driven pinned reel only where there is a mouse and room for it.
+    mm.add('(min-width: 768px) and (hover: hover)', () => {
       const el = track.current!;
       const distance = () => Math.max(0, el.scrollWidth - window.innerWidth);
       const dir = isAr ? 1 : -1;
@@ -129,36 +151,31 @@ export function Portfolio() {
           onLeaveBack: () => skewTo(0),
         },
       });
-      // Images drift inside their frames as the reel moves (depth).
-      el.querySelectorAll<HTMLElement>('.reel-img').forEach(img => {
-        gsap.fromTo(
-          img,
-          { xPercent: -5 * dir },
-          {
-            xPercent: 5 * dir,
-            ease: 'none',
-            scrollTrigger: { trigger: img.closest('.reel-panel'), containerAnimation: tween, start: 'left right', end: 'right left', scrub: true },
-          },
-        );
-      });
+      return () => tween.scrollTrigger?.kill();
     });
     return () => mm.revert();
   }, [isAr]);
 
   return (
     <section id="portfolio" ref={section} className={`relative overflow-hidden bg-background ${staticReel ? 'reel-static' : ''}`}>
-      <div className="h-[100svh] flex flex-col justify-center">
-        <div ref={track} className="reel-track flex flex-row items-center gap-[7vw] lg:gap-[5vw] px-[clamp(1.1rem,4vw,3.5rem)] pe-[12vw]">
+      <div className="py-20 md:py-0 md:h-[100svh] flex flex-col justify-center">
+        <div
+          ref={track}
+          className="reel-track flex flex-row items-center gap-5 md:gap-[5vw] px-[clamp(1.1rem,4vw,3.5rem)] md:pe-[12vw]"
+        >
           {/* Intro card */}
-          <div className="shrink-0 w-[78vw] sm:w-[52vw] lg:w-[30vw] max-w-xl">
+          <div className="shrink-0 w-[78vw] sm:w-[52vw] lg:w-[30vw] max-w-xl snap-start">
             <p className="font-oswald text-[11px] tracking-[0.3em] uppercase text-gold mb-6">SC.02 — {isAr ? 'أعمال مختارة' : 'Selected Work'}</p>
             <h2 className="t-h1 text-foreground mb-6" style={{ fontSize: 'clamp(2.4rem, 4.4vw, 4.6rem)' }}>
               {isAr ? <>أعمال <span className="t-serif text-gold">مختارة</span></> : <>Selected <span className="t-serif text-gold">work</span></>}
               <sup className="font-oswald text-gold text-[0.28em] align-top ms-3">({pad(projects.length)})</sup>
             </h2>
             <p className="muted-2 leading-relaxed mb-8">{t('portfolio.subtitle')}</p>
-            <p className="flex items-center gap-3 text-xs muted-3 tracking-[0.2em] uppercase">
+            <p className="reel-hint-scroll items-center gap-3 text-xs muted-3 tracking-[0.2em] uppercase">
               <span className="w-10 h-px bg-gold" /> {isAr ? 'كمّل سكرول — الشريط بيتحرك' : 'Keep scrolling — the reel runs'}
+            </p>
+            <p className="reel-hint-swipe items-center gap-3 text-xs text-gold tracking-[0.2em] uppercase">
+              <span className="swipe-hint inline-block">{isAr ? '←' : '→'}</span> {isAr ? 'اسحب للشمال عشان تشوف الشغل' : 'Swipe to see the work'}
             </p>
           </div>
 
@@ -167,7 +184,7 @@ export function Portfolio() {
           ))}
 
           {/* Outro card */}
-          <div className="shrink-0 w-[70vw] sm:w-[44vw] lg:w-[28vw] flex flex-col items-start gap-6">
+          <div className="shrink-0 w-[70vw] sm:w-[44vw] lg:w-[28vw] flex flex-col items-start gap-6 snap-center">
             <p className="t-h2 text-foreground max-w-xs">{isAr ? 'شغل أكتر في الهوية والموشن والفيديو.' : 'More work in branding, motion and film.'}</p>
             <Magnetic>
               <Link to="/portfolio" className="btn btn-gold">
@@ -181,7 +198,7 @@ export function Portfolio() {
         </div>
 
         {/* Reel progress */}
-        <div className="flex absolute bottom-8 inset-x-0 justify-center pointer-events-none">
+        <div className="flex mt-8 md:mt-0 md:absolute md:bottom-8 inset-x-0 justify-center pointer-events-none">
           <span className="relative w-48 h-px bg-foreground/15 overflow-hidden">
             <span ref={progress} className="absolute inset-0 bg-gold origin-left rtl:origin-right" style={{ transform: 'scaleX(0)' }} />
           </span>

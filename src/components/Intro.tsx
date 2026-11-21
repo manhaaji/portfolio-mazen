@@ -169,14 +169,21 @@ export function Intro({ onDone }: { onDone: () => void }) {
   const sfx = useSfx();
   const done = useRef(false);
 
+  // A fresh random cut of the work on every visit; never two frames of the same project back to back when avoidable.
   const frames = useMemo(() => {
-    const list: string[] = [];
-    projects.forEach(p => {
-      for (let i = 1; i <= p.imagesCount; i++) list.push(`/assets/portfolio/${p.category}/${p.folderName}/mid/${String(i).padStart(2, '0')}.webp`);
-    });
-    const a = list.filter((_, i) => i % 2 === 0);
-    const b = list.filter((_, i) => i % 2 === 1);
-    return [...a, ...b].slice(0, 16);
+    const list = projects.flatMap(p =>
+      Array.from({ length: p.imagesCount }, (_, i) => ({ id: p.id, src: `/assets/portfolio/${p.category}/${p.folderName}/mid/${String(i + 1).padStart(2, '0')}.webp` })),
+    );
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
+    for (let i = 1; i < list.length; i++) {
+      if (list[i].id !== list[i - 1].id) continue;
+      const k = list.findIndex((f, n) => n > i && f.id !== list[i - 1].id);
+      if (k > 0) [list[i], list[k]] = [list[k], list[i]];
+    }
+    return list.slice(0, 16).map(f => f.src);
   }, []);
 
   useEffect(() => {

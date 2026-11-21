@@ -3,12 +3,11 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ArrowLeft, ArrowUpRight, Play, Maximize2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { projects, projectCover, projectTexts, type Project } from '../data/projects';
+import { projects, projectCover, projectSrcSet, projectTexts, ratioOf, type Project } from '../data/projects';
 import { Footer } from '../components/Footer';
 import type { DeckItem } from '../components/DeckViewer';
 import { VideoFrame } from '../components/VideoFrame';
 const DeckViewer = lazy(() => import('../components/DeckViewer'));
-const thumbOf = (src: string) => src.replace(/\/(\d\d)\.webp$/, '/thumbs/$1.webp');
 import { RevealText, Reveal, Magnetic } from '../components/motion/Primitives';
 import { Slate } from '../components/motion/EditSuite';
 import { prefersReducedMotion } from '../lib/scroll';
@@ -17,6 +16,24 @@ import { useDelayedPreview, PreviewRing } from '../components/DelayedPreview';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
+/**
+ * Lays the frames after the cover out by their real shape: wide frames take a
+ * full row, upright/square frames pair up side by side (one alone is centred).
+ */
+function galleryRows(sizes: [number, number][], from: number, count: number) {
+  const rows: number[][] = [];
+  const upright = (i: number) => {
+    const s = sizes[i];
+    return !s || s[0] / s[1] < 1.2;
+  };
+  for (let i = from; i < count; i++) {
+    if (upright(i) && i + 1 < count && upright(i + 1)) {
+      rows.push([i, i + 1]);
+      i++;
+    } else rows.push([i]);
+  }
+  return rows;
+}
 
 function NeighbourLink({ project, label, align }: { project: Project; label: string; align: 'start' | 'end' }) {
   const { t } = useLanguage();
@@ -51,6 +68,8 @@ export function ProjectDetailPage() {
   const [deck, setDeck] = useState<number | null>(null);
   const closeDeck = useCallback(() => setDeck(null), []);
   const [storyOpen, setStoryOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  useEffect(() => setGalleryOpen(false), [projectId]);
   const heroRef = useRef<HTMLDivElement>(null);
   const heroVideo = useRef<HTMLVideoElement>(null);
   const heroPreview = useDelayedPreview(heroVideo);
@@ -206,8 +225,8 @@ export function ProjectDetailPage() {
                   <span className="truncate">{project.id} — COVER</span>
                   <span className="opacity-50">{project.imagesCount} FR</span>
                 </div>
-                <div className="pro-frame-media relative aspect-[4/3] bg-card overflow-hidden">
-                  <img src={projectCover(project)} alt={text.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+                <div className="pro-frame-media relative bg-card overflow-hidden" style={{ aspectRatio: ratioOf(project) }}>
+                  <img src={projectCover(project)} srcSet={projectSrcSet(project, 0)} sizes="(min-width: 768px) 60vw, 100vw" alt={text.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                 </div>
               </button>
             </div>
@@ -217,7 +236,12 @@ export function ProjectDetailPage() {
         </section>
       ) : (
       <section className="wrap max-w-[1280px]">
-        <div ref={heroRef} className="pro-frame origin-top will-change-transform">
+        <div
+          ref={heroRef}
+          className="pro-frame origin-top will-change-transform mx-auto"
+          // An upright cover stays whole on screen instead of running past the fold.
+          style={{ width: `min(100%, calc(80svh * ${(project.sizes[0]?.[0] || 16) / (project.sizes[0]?.[1] || 9)}))` }}
+        >
           <div className="pro-frame-bar" dir="ltr">
             <span className="flex gap-1.5"><i /><i /><i /></span>
             <span className="truncate">{project.id} — {text.title}</span>
@@ -226,13 +250,14 @@ export function ProjectDetailPage() {
           <button
             type="button"
             onClick={() => setDeck(0)}
-            className="pro-frame-media group block w-full relative aspect-[4/3] sm:aspect-[16/9] bg-card overflow-hidden"
+            className="pro-frame-media group block w-full relative bg-card overflow-hidden"
+            style={{ aspectRatio: ratioOf(project) }}
             data-cursor={project.animationLink ? 'Play' : 'View'}
             aria-label={isAr ? 'افتح العرض' : 'Open viewer'}
           >
-            {project.animationLink ? (
+            <img src={projectCover(project)} srcSet={projectSrcSet(project, 0)} sizes="(min-width: 1280px) 1280px, 100vw" alt={text.title} className="absolute inset-0 w-full h-full object-cover" />
+            {project.animationLink && (
               <>
-                <img src={projectCover(project)} alt={text.title} className="absolute inset-0 w-full h-full object-cover" />
                 <video
                   ref={heroVideo}
                   src={project.animationLink}
@@ -240,12 +265,10 @@ export function ProjectDetailPage() {
                   loop
                   playsInline
                   preload="auto"
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${heroPreview.state === 'playing' ? 'opacity-100' : 'opacity-0'}`}
+                  className={`absolute inset-0 w-full h-full object-contain bg-black transition-opacity duration-1000 ${heroPreview.state === 'playing' ? 'opacity-100' : 'opacity-0'}`}
                 />
                 <PreviewRing state={heroPreview.state} label={isAr ? 'تحميل' : 'Loading'} />
               </>
-            ) : (
-              <img src={projectCover(project)} alt={text.title} className="absolute inset-0 w-full h-full object-cover" />
             )}
             <span className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             <span className="absolute bottom-5 start-5 md:bottom-8 md:start-8 flex items-center gap-3 text-white text-sm">
@@ -341,37 +364,25 @@ export function ProjectDetailPage() {
         </div>
       </section>
 
-      {/* ---------- Gallery: one hero frame + a translucent stack that opens the deck ---------- */}
-      {images.length > 0 && (
-        <section className="pb-24 md:pb-32">
+      {/* ---------- Gallery: every frame after the cover at its own shape ---------- */}
+      {images.length > 1 && !project.oldGallery && (
+        <section id="gallery" className="pb-24 md:pb-32 scroll-mt-28">
           <div className="wrap max-w-[1180px]">
             <div className="flex items-end justify-between gap-6 mb-8 md:mb-12 border-b border-foreground/10 pb-5">
               <h2 className="t-h2 text-foreground">{t('portfolio.projectDetails.projectGallery')}</h2>
               <span className="font-oswald text-[11px] tracking-[0.3em] muted-3" dir="ltr">
-                {pad(images.length)} FRAMES
+                {pad(images.length - 1)} FRAMES
               </span>
             </div>
 
-            <Reveal>
-              <button
-                type="button"
-                onClick={() => setDeck(videoOffset)}
-                className="group relative block w-full rounded-xl overflow-hidden bg-card ring-1 ring-foreground/10 hover:ring-gold/50 transition-all duration-500"
-                data-cursor="View"
-                aria-label={`${text.title} — 01`}
-              >
-                <img src={images[0]} alt={`${text.title} — 01`} className="w-full h-auto max-h-[72vh] object-contain mx-auto transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.02]" />
-                <span className="absolute top-3 start-3 font-oswald text-[10px] tracking-[0.25em] text-white/85 bg-black/45 backdrop-blur px-2 py-1 rounded" dir="ltr">01</span>
-              </button>
-            </Reveal>
-
-            {images.length > 1 && (
-              <Reveal delay={0.1}>
+            {!galleryOpen ? (
+              <Reveal>
                 <button
                   type="button"
-                  onClick={() => setDeck(1 + videoOffset)}
-                  className="group relative mt-6 w-full h-40 sm:h-48 rounded-xl overflow-hidden bg-card/40 ring-1 ring-foreground/10 hover:ring-gold/50 transition-all duration-500"
+                  onClick={() => setGalleryOpen(true)}
+                  className="group relative w-full h-56 sm:h-64 rounded-xl overflow-hidden bg-card/40 ring-1 ring-foreground/10 hover:ring-gold/50 transition-all duration-500"
                   data-cursor="Open"
+                  aria-expanded={false}
                 >
                   <span className="absolute inset-0 flex items-center justify-center">
                     {images.slice(1, 6).map((src, k, arr) => {
@@ -379,25 +390,72 @@ export function ProjectDetailPage() {
                       return (
                         <img
                           key={src}
-                          src={thumbOf(src)}
+                          src={src.replace(/\/(\d\d)\.webp$/, '/thumbs/$1.webp')}
                           alt=""
                           loading="lazy"
-                          className="peek-card absolute h-[74%] w-auto rounded-md shadow-xl opacity-40 group-hover:opacity-85"
+                          className="peek-card absolute h-[72%] w-auto rounded-md shadow-xl opacity-50 group-hover:opacity-90"
                           style={{ ['--off' as string]: off, zIndex: 10 - Math.round(Math.abs(off)) }}
                         />
                       );
                     })}
                   </span>
-                  <span className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-                  <span className="relative z-20 h-full flex flex-col items-center justify-end pb-4 gap-1.5">
-                    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold text-black text-sm font-semibold shadow-lg group-hover:scale-105 transition-transform duration-500">
-                      {isAr ? `شوف المزيد (+${images.length - 1})` : `View more (+${images.length - 1})`}
-                      <ArrowUpRight size={15} className="rtl:-scale-x-100" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                  <span className="relative z-20 h-full flex flex-col items-center justify-end pb-5 gap-1.5">
+                    <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-black text-sm font-semibold shadow-lg group-hover:scale-105 transition-transform duration-500">
+                      {isAr ? `عرض كل الصور (${images.length - 1})` : `View all frames (${images.length - 1})`}
+                      <ArrowUpRight size={15} className="rotate-90 rtl:-scale-x-100" />
                     </span>
-                    <span className="text-[11px] muted-2">{isAr ? 'عرض كروت بتتسحب يمين وشمال' : 'Opens a swipeable card deck'}</span>
                   </span>
                 </button>
               </Reveal>
+            ) : (
+            <div className="flex flex-col gap-4 md:gap-6">
+              {galleryRows(project.sizes, 1, images.length).map((row, ri) => (
+                <div key={row[0]} className={`grid gap-4 md:gap-6 ${row.length === 2 ? 'sm:grid-cols-2' : ''}`}>
+                  {row.map(i => {
+                    const [w, h] = project.sizes[i] || [4, 5];
+                    const lone = row.length === 1 && w / h < 1.2;
+                    return (
+                      <Reveal key={i} y={40} delay={Math.min(ri, 3) * 0.08}>
+                        <button
+                          type="button"
+                          onClick={() => setDeck(i + videoOffset)}
+                          className="group relative block w-full mx-auto overflow-hidden rounded-lg bg-card ring-1 ring-foreground/10 hover:ring-gold/50 transition-[box-shadow] duration-500"
+                          // A lone upright frame stays fully on screen.
+                          style={{ aspectRatio: `${w} / ${h}`, maxWidth: lone ? `min(100%, calc(85svh * ${(w / h).toFixed(3)}))` : undefined }}
+                          data-cursor="View"
+                          aria-label={`${text.title} — ${pad(i + 1)}`}
+                        >
+                          <img
+                            src={images[i]}
+                            srcSet={projectSrcSet(project, i)}
+                            sizes={row.length === 2 ? '(min-width: 640px) 590px, 100vw' : '(min-width: 1180px) 1180px, 100vw'}
+                            alt={`${text.title} — ${pad(i + 1)}`}
+                            loading="lazy"
+                            decoding="async"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.015]"
+                          />
+                          <span className="absolute top-3 start-3 font-oswald text-[10px] tracking-[0.25em] text-white/85 bg-black/45 backdrop-blur px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity" dir="ltr">
+                            {pad(i + 1)}
+                          </span>
+                        </button>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setGalleryOpen(false);
+                  document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="mx-auto mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-foreground/15 text-sm muted-2 hover:text-gold hover:border-gold/60 transition-colors"
+              >
+                {isAr ? 'اقفل الصور' : 'Collapse frames'}
+                <ArrowUpRight size={14} className="-rotate-45 rtl:rotate-[-135deg]" />
+              </button>
+            </div>
             )}
           </div>
         </section>

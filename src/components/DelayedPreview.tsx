@@ -33,6 +33,28 @@ export function useDelayedPreview(videoRef: RefObject<HTMLVideoElement | null>, 
   return { state, start, stop };
 }
 
+/**
+ * Touch screens have no hover: the preview starts once the card sits in the
+ * middle of the screen (same 2 s ring) and stops when it scrolls away.
+ */
+export function useInViewPreview(
+  target: RefObject<HTMLElement | null>,
+  preview: { start: () => void; stop: () => void },
+  enabled: boolean,
+) {
+  const { start, stop } = preview;
+  useEffect(() => {
+    const el = target.current;
+    if (!enabled || !el || !window.matchMedia('(hover: none)').matches) return;
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), {
+      rootMargin: '-30% -15% -30% -15%',
+      threshold: 0.01,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [target, start, stop, enabled]);
+}
+
 /** Circular countdown shown while a preview is about to start. */
 export function PreviewRing({ state, delay = 2000, label }: { state: 'idle' | 'loading' | 'playing'; delay?: number; label?: string }) {
   if (state !== 'loading') return null;

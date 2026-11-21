@@ -61,6 +61,10 @@ export interface Content {
     since?: string;
     yearsExperience?: number;
     disciplines?: number;
+    /** Web app config from the Firebase console (public by design). */
+    firebase?: { apiKey: string; authDomain: string; projectId: string; appId: string; storageBucket?: string; messagingSenderId?: string };
+    /** Visitor reviews on/off (needs firebase). */
+    reviews?: boolean;
   };
   social: Record<string, string>;
   tools: { mono: string; name: string }[];

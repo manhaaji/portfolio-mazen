@@ -18,6 +18,7 @@ export interface ProjectRecord {
   category: string;
   folder: string;
   imagesCount: number;
+  sizes?: [number, number][];
   video?: string;
   videoKind?: VideoKind;
   videos?: MediaVideo[];
@@ -34,6 +35,8 @@ export interface Project {
   category: string;
   folderName: string;
   imagesCount: number;
+  /** [width, height] per image, 01 first (the cover). */
+  sizes: [number, number][];
   videoUrl?: string;
   mainVideoUrl?: string;
   animationLink?: string;
@@ -56,6 +59,7 @@ export const projects: Project[] = [...projectRecords]
     category: p.category,
     folderName: p.folder,
     imagesCount: p.imagesCount,
+    sizes: p.sizes || [],
     animationLink: p.video,
     videoKind: p.videoKind,
     videos: p.videos,
@@ -63,6 +67,21 @@ export const projects: Project[] = [...projectRecords]
 
 export const projectCover = (p: Pick<Project, 'category' | 'folderName' | 'oldImage'>) =>
   p.oldImage || `/assets/portfolio/${p.category}/${p.folderName}/01.webp`;
+
+/** CSS aspect-ratio of image `i` (0 = cover); 16/9 when unknown. */
+export const ratioOf = (p: Pick<Project, 'sizes'>, i = 0) => {
+  const s = p.sizes?.[i];
+  return s && s[0] && s[1] ? `${s[0]} / ${s[1]}` : '16 / 9';
+};
+
+export const projectImage = (p: Pick<Project, 'category' | 'folderName'>, i: number, size: 'full' | 'mid' | 'thumbs' = 'full') =>
+  `/assets/portfolio/${p.category}/${p.folderName}/${size === 'full' ? '' : size + '/'}${String(i + 1).padStart(2, '0')}.webp`;
+
+/** Responsive source set: the browser picks the 1200px or the full file by screen size. */
+export const projectSrcSet = (p: Pick<Project, 'category' | 'folderName' | 'sizes'>, i: number) => {
+  const w = p.sizes?.[i]?.[0];
+  return w && w > 1200 ? `${projectImage(p, i, 'mid')} 1200w, ${projectImage(p, i)} ${w}w` : undefined;
+};
 
 export function projectTexts(lang: 'en' | 'ar') {
   const map: Record<string, ProjectText> = {};

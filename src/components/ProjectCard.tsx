@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Play } from 'lucide-react';
 import { LazyImage } from './ui/LazyImage';
 import { Frame } from './motion/EditSuite';
-import { useDelayedPreview, PreviewRing } from './DelayedPreview';
+import { useDelayedPreview, useInViewPreview, PreviewRing } from './DelayedPreview';
 import { useLanguage } from '../contexts/LanguageContext';
-import { projectCover, type Project } from '../data/projects';
+import { projectCover, projectSrcSet, ratioOf, type Project } from '../data/projects';
 import { generateImageAltText } from '../lib/seoUtils';
 
 /**
@@ -20,6 +20,7 @@ export function ProjectCard({ project, index, isNew = false }: { project: Projec
   const playing = preview.state === 'playing';
   const title = t(`portfolio.projects.${project.id}.title`);
   const video = project.animationLink;
+  useInViewPreview(cardRef, preview, !!video);
 
   const onMove = (e: React.PointerEvent) => {
     const el = cardRef.current;
@@ -51,13 +52,16 @@ export function ProjectCard({ project, index, isNew = false }: { project: Projec
       <Frame className="mb-6">
       <div
         ref={cardRef}
-        className={`card-tilt card-media relative aspect-[4/3] overflow-hidden bg-card ${playing ? 'is-playing' : ''}`}
+        className={`card-tilt card-media relative overflow-hidden bg-card ${playing ? 'is-playing' : ''}`}
+        style={{ aspectRatio: ratioOf(project) }}
       >
         <LazyImage
           src={projectCover(project)}
+          srcSet={projectSrcSet(project, 0)}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={generateImageAltText(project, title)}
           containerClassName="absolute inset-0 w-full h-full"
-          className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
         {video && (
           <video
@@ -67,7 +71,7 @@ export function ProjectCard({ project, index, isNew = false }: { project: Projec
             loop
             playsInline
             preload="none"
-            className="absolute inset-0 w-full h-full object-cover"
+            className={`absolute inset-0 w-full h-full object-contain bg-black transition-opacity duration-700 ${playing ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
 

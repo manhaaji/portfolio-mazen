@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -12,6 +12,16 @@ export function Footer() {
   const navigate = useNavigate();
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  // The wordmark lights up letter by letter on its own while it is on screen.
+  const markRef = useRef<HTMLDivElement>(null);
+  const [markOn, setMarkOn] = useState(false);
+  useEffect(() => {
+    const el = markRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setMarkOn(e.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const themeColor = theme === 'dark' ? '#D4AF37' : '#2563eb';
 
@@ -248,10 +258,14 @@ export function Footer() {
       </div>
 
       {/* Giant wordmark: letters fill with gold under the pointer */}
-      <div className="relative select-none" dir="ltr" aria-hidden>
-        <div className="wordmark text-center px-2 -mb-[0.12em]">
+      <div ref={markRef} className="relative select-none" dir="ltr" aria-hidden>
+        <div className={`wordmark text-center px-2 -mb-[0.12em] ${markOn ? 'wm-on' : ''}`}>
           {[...'MAZEN KHALED'].map((c, i) => (
-            <span key={i} className="inline-block transition-colors duration-500 hover:text-gold hover:[-webkit-text-stroke:0] hover:-translate-y-2 hover:duration-200" style={{ transitionProperty: 'color, transform' }}>
+            <span
+              key={i}
+              className="wm-char inline-block transition-colors duration-500 hover:text-gold hover:[-webkit-text-stroke:0] hover:-translate-y-2 hover:duration-200"
+              style={{ transitionProperty: 'color, transform', ['--i' as string]: i }}
+            >
               {c === ' ' ? ' ' : c}
             </span>
           ))}
