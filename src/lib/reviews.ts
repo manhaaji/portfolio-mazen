@@ -23,6 +23,10 @@ export interface ReviewUser {
 
 const cfg = content.settings.firebase;
 export const reviewsEnabled = !!(cfg?.apiKey && cfg?.projectId && content.settings.reviews !== false);
+/** The review window opens by itself after 10 s (switch in Mazen Studio). */
+export const reviewsPrompt = content.settings.reviewsPrompt !== false;
+/** Facebook button shows only once the Facebook app is set up in Firebase. */
+export const facebookLogin = content.settings.facebookLogin === true;
 
 type Sdk = Awaited<ReturnType<typeof load>>;
 let sdk: Promise<Sdk> | null = null;
@@ -62,21 +66,20 @@ export async function onUser(cb: (u: ReviewUser | null) => void) {
 export async function signIn(provider: 'google' | 'facebook') {
   const { auth, a } = await getSdk();
   const p = provider === 'google' ? new auth.GoogleAuthProvider() : new auth.FacebookAuthProvider();
-  try {
-    await auth.signInWithPopup(a, p);
-  } catch (e) {
-    // Popups are often blocked inside in-app browsers (Instagram, Facebook): fall back to a full redirect.
-    if ((e as { code?: string }).code === 'auth/popup-blocked') await auth.signInWithRedirect(a, p);
-    else throw e;
-  }
+  // Popup only: a redirect would need the auth handler on this domain (GitHub Pages can't proxy it),
+  // and Google refuses sign-in inside Instagram/Facebook in-app browsers anyway.
+  await auth.signInWithPopup(a, p);
 }
+
+/** Instagram / Facebook / TikTok in-app browsers: Google sign-in is blocked there. */
+export const inAppBrowser = () => /FBAN|FBAV|FB_IAB|Instagram|musical_ly|BytedanceWebview|Line\//i.test(navigator.userAgent);
 
 export async function signOut() {
   const { auth, a } = await getSdk();
   await auth.signOut(a);
 }
 
-export async function submitReview(user: ReviewUser, text: string, rating: number, role: string) {
+export async function submitReview(user: ReviewUser, text: string, rating: number, role = '') {
   const { fs, db } = await getSdk();
   await fs.setDoc(fs.doc(db, 'reviews', user.uid), {
     uid: user.uid,

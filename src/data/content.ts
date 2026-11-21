@@ -65,6 +65,10 @@ export interface Content {
     firebase?: { apiKey: string; authDomain: string; projectId: string; appId: string; storageBucket?: string; messagingSenderId?: string };
     /** Visitor reviews on/off (needs firebase). */
     reviews?: boolean;
+    /** Review window opens by itself after 10 s. */
+    reviewsPrompt?: boolean;
+    /** Show "Continue with Facebook" (only after the Facebook app is set up). */
+    facebookLogin?: boolean;
   };
   social: Record<string, string>;
   tools: { mono: string; name: string }[];

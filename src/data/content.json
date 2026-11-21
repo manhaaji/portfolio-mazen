@@ -7,7 +7,16 @@
     "location": "Giza, Egypt",
     "since": "2018",
     "yearsExperience": 8,
-    "disciplines": 6
+    "disciplines": 6,
+    "firebase": {
+      "apiKey": "AIzaSyB_MQD9OOkt_B80iev-R1P6MUYO00hFLF4",
+      "authDomain": "mazen-site-fce1a.firebaseapp.com",
+      "projectId": "mazen-site-fce1a",
+      "storageBucket": "mazen-site-fce1a.firebasestorage.app",
+      "messagingSenderId": "891261536062",
+      "appId": "1:891261536062:web:2b46f213bc6ed94bbace6f"
+    },
+    "reviews": true
   },
   "social": {
     "instagram": "https://www.instagram.com/mazen.ve",
@@ -73,7 +82,7 @@
     {
       "id": "testimonials",
       "type": "testimonials",
-      "visible": false
+      "visible": true
     },
     {
       "id": "contact",

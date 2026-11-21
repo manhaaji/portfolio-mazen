@@ -12,6 +12,9 @@ import {
   submitReview,
   setApproved,
   removeReview,
+  inAppBrowser,
+  reviewsPrompt,
+  facebookLogin,
   type Review,
   type ReviewUser,
 } from '../lib/reviews';
@@ -84,10 +87,11 @@ const FacebookIcon = () => (
 /** Sign in → write a review. The owner signing in also gets the approval list. */
 function ReviewModal({ onClose }: { onClose: () => void }) {
   const { language } = useLanguage();
-  const ar = language === 'ar';
+  // The window has its own AR/EN switch, independent of the site language.
+  const [lang, setLang] = useState(language);
+  const ar = lang === 'ar';
   const [user, setUser] = useState<ReviewUser | null | undefined>(undefined);
   const [text, setText] = useState('');
-  const [role, setRole] = useState('');
   const [rating, setRating] = useState(5);
   const [state, setState] = useState<'idle' | 'busy' | 'sent'>('idle');
   const [error, setError] = useState('');
@@ -102,13 +106,18 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
     }).then(f => (off = f));
     const lenis = getLenis();
     lenis?.stop();
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
+    document.documentElement.style.overflow = 'hidden';
     return () => {
       off?.();
       lenis?.start();
-      window.removeEventListener('keydown', onKey);
+      document.documentElement.style.overflow = '';
     };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
   const login = async (p: 'google' | 'facebook') => {
@@ -117,7 +126,11 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
       await signIn(p);
     } catch (e) {
       const code = (e as { code?: string }).code || '';
-      if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request')
+      if (code === 'auth/popup-blocked')
+        setError(ar ? 'المتصفح منع نافذة الدخول — اسمح بالنوافذ المنبثقة للموقع وجرّب تاني.' : 'The browser blocked the sign-in window — allow pop-ups for this site and try again.');
+      else if (code === 'auth/account-exists-with-different-credential')
+        setError(ar ? 'الإيميل ده متسجل بطريقة تانية — جرّب الدخول بجوجل.' : 'This email already uses another sign-in method — try Google.');
+      else if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request')
         setError(ar ? 'تسجيل الدخول مكملش — جرّب تاني.' : 'Sign-in did not complete — please try again.');
     }
   };
@@ -130,8 +143,13 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
     setState('busy');
     setError('');
     try {
-      await submitReview(user, text, rating, role);
+      await submitReview(user, text, rating);
       setState('sent');
+      try {
+        localStorage.setItem('reviewed', '1');
+      } catch {
+        /* private mode */
+      }
     } catch {
       setState('idle');
       setError(ar ? 'حصلت مشكلة في الإرسال — جرّب تاني.' : 'Could not send — please try again.');
@@ -147,15 +165,25 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9100] flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true" dir={ar ? 'rtl' : 'ltr'}>
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} />
       <div
         className="relative w-full sm:max-w-lg max-h-[92svh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-[#0d0d0d] text-[#f4f1ea] ring-1 ring-[#D4AF37]/25 shadow-[0_40px_120px_-30px_rgba(212,175,55,.35)] p-6 sm:p-8 animate-[deckIn_.45s_cubic-bezier(.16,1,.3,1)]"
         data-lenis-prevent
       >
-        <button onClick={onClose} className="absolute top-4 end-4 w-9 h-9 rounded-full grid place-items-center bg-white/5 hover:bg-white/10" aria-label={ar ? 'اقفل' : 'Close'}>
-          <X size={16} />
-        </button>
-        <p className="font-oswald text-[11px] tracking-[0.3em] uppercase text-[#D4AF37] mb-2">{ar ? 'رأيك يهمني' : 'Your review'}</p>
+        <div className="absolute top-4 end-4 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setLang(ar ? 'en' : 'ar')}
+            className="h-9 px-3 rounded-full bg-white/5 hover:bg-white/10 text-xs font-semibold tracking-wide"
+            aria-label={ar ? 'English' : 'عربي'}
+          >
+            {ar ? 'EN' : 'ع'}
+          </button>
+          <button onClick={onClose} className="w-9 h-9 rounded-full grid place-items-center bg-white/5 hover:bg-white/10" aria-label={ar ? 'اقفل' : 'Close'}>
+            <X size={16} />
+          </button>
+        </div>
+        <p className="font-oswald text-[11px] tracking-[0.3em] uppercase text-[#D4AF37] mb-2 pe-24">{ar ? 'رأيك يهمني' : 'Your review'}</p>
         <h3 className="text-2xl font-bold mb-6">{ar ? 'اشتغلنا مع بعض؟ قول رأيك' : 'Worked together? Leave a review'}</h3>
 
         {user === undefined ? (
@@ -165,12 +193,21 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
             <p className="text-sm text-white/55 mb-4">
               {ar ? 'سجّل دخول عشان رأيك يظهر باسمك وصورتك. مش هنشوف أي بيانات تانية.' : 'Sign in so your review shows with your name and photo. Nothing else is shared.'}
             </p>
+            {inAppBrowser() && (
+              <div className="rounded-xl bg-[#D4AF37]/10 ring-1 ring-[#D4AF37]/40 p-3 text-sm text-[#f4d38a] mb-2">
+                {ar
+                  ? 'إنت فاتح من جوه إنستجرام/فيسبوك، والتسجيل مش بيشتغل هنا. دوس ⋯ فوق واختار "فتح في المتصفح" (Chrome أو Safari).'
+                  : 'You are inside the Instagram/Facebook browser, where sign-in is blocked. Tap ⋯ and choose "Open in browser".'}
+              </div>
+            )}
             <button onClick={() => login('google')} className="w-full h-12 rounded-full bg-white text-black font-medium inline-flex items-center justify-center gap-3 hover:bg-white/90 transition-colors">
               <GoogleIcon /> {ar ? 'الدخول بجوجل' : 'Continue with Google'}
             </button>
-            <button onClick={() => login('facebook')} className="w-full h-12 rounded-full bg-[#1877F2] text-white font-medium inline-flex items-center justify-center gap-3 hover:brightness-110 transition">
-              <FacebookIcon /> {ar ? 'الدخول بفيسبوك' : 'Continue with Facebook'}
-            </button>
+            {facebookLogin && (
+              <button onClick={() => login('facebook')} className="w-full h-12 rounded-full bg-[#1877F2] text-white font-medium inline-flex items-center justify-center gap-3 hover:brightness-110 transition">
+                <FacebookIcon /> {ar ? 'الدخول بفيسبوك' : 'Continue with Facebook'}
+              </button>
+            )}
           </div>
         ) : state === 'sent' ? (
           <div className="text-center py-6">
@@ -192,13 +229,6 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
                 <LogOut size={16} />
               </button>
             </div>
-            <input
-              value={role}
-              onChange={e => setRole(e.target.value)}
-              maxLength={60}
-              placeholder={ar ? 'شغلك أو اسم شركتك (اختياري)' : 'Your role or company (optional)'}
-              className="w-full h-11 px-4 rounded-xl bg-white/5 ring-1 ring-white/10 focus:ring-[#D4AF37]/60 outline-none text-sm"
-            />
             <textarea
               value={text}
               onChange={e => setText(e.target.value)}
@@ -284,7 +314,28 @@ export function ReviewsLayer() {
     window.addEventListener('open-review', open);
     // Owner shortcut: mazen.manhaaji.com/?reviews opens the form (and the approval list).
     if (new URLSearchParams(location.search).has('reviews')) setForm(true);
-    const t = window.setTimeout(() => setReady(true), 10000);
+    const t = window.setTimeout(async () => {
+      setReady(true);
+      if (!reviewsEnabled || !reviewsPrompt) return;
+      // Once per visit, and never for someone who already sent a review.
+      try {
+        if (localStorage.getItem('reviewed') === '1' || sessionStorage.getItem('reviewPrompted') === '1') return;
+        sessionStorage.setItem('reviewPrompted', '1');
+      } catch {
+        /* private mode */
+      }
+      // After 10 s a visitor who is not signed in gets the review window (closable).
+      // Wait for Firebase's first answer (it restores a saved sign-in asynchronously), then stop listening.
+      let off: (() => void) | undefined;
+      let done = false;
+      off = await onUser(u => {
+        if (done) return;
+        done = true;
+        if (!u) setForm(true);
+        window.setTimeout(() => off?.(), 0);
+      });
+      if (done) off();
+    }, 10000);
     return () => {
       window.removeEventListener('open-review', open);
       window.clearTimeout(t);
@@ -310,7 +361,7 @@ export function ReviewsLayer() {
 
   return (
     <>
-      {ready && !hidden && (
+      {ready && !hidden && !form && (
         <div
           key={r?.id || 'invite'}
           className="fixed bottom-4 start-4 z-[8000] w-[min(340px,calc(100vw-2rem))] rounded-2xl bg-[#0d0d0d]/92 backdrop-blur-md text-[#f4f1ea] ring-1 ring-[#D4AF37]/25 shadow-[0_24px_70px_-20px_rgba(0,0,0,.8)] p-4 animate-[toastIn_.6s_cubic-bezier(.16,1,.3,1)]"
