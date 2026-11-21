@@ -1,6 +1,88 @@
 {
   "projects": [
     {
+      "id": "SM-09",
+      "category": "social-media",
+      "folder": "SM-09-Brand-Building-Secrets-Social-Media-Caro-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Brand Building Secrets - Social Media Carousel",
+        "description": "A strategic carousel consisting of 9 slides that explains how to build a strong and authentic brand that will leave a permanent mark on the market and go beyond temporary trends.",
+        "details": "The project targets entrepreneurs and brand owners to provide a brief roadmap on visual uniqueness, consistency of presence, and raising the quality of details as the most important pillars of building trust and sustainable reputation.\nThe visual identity of the series combines luxury and warmth using shades of beige, black and gold, with refined photographs that express craftsmanship and luxurious architecture, and an elaborate distribution of lines that reflects the value of major brands.",
+        "client": "Social Media Ads",
+        "services": [
+          "Visual Storytelling",
+          "Copywriting",
+          "Typography",
+          "Social Media Design",
+          "Carousel Layout"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "أسرار بناء العلامة التجارية - كاروسيل التواصل الاجتماعي",
+        "description": "كاروسيل استراتيجي مكون من 9 شرائح يشرح كيفية بناء براند قوي وأصيل يترك بصمة دائمة في السوق ويتجاوز التريندات المؤقتة.",
+        "details": "يستهدف المشروع رواد الأعمال وأصحاب العلامات التجارية لتقديم خارطة طريق مختصرة حول التفرد البصري، ثبات الحضور، ورفع جودة التفاصيل كأهم ركائز بناء الثقة والشهرة المستدامة.\nتجمع الهوية البصرية للسلسلة بين الفخامة والدفء باستخدام درجات البيج والأسود والذهبي، مع صور فوتوغرافية راقية تعبر عن الحرفية والمعمار الفاخر، وتوزيع متقن للخطوط يعكس قيمة العلامات الكبرى.",
+        "client": "إعلانات التواصل الاجتماعي",
+        "services": [
+          "السرد البصري",
+          "كتابة المحتوى",
+          "الخطوط",
+          "تصميم سوشيال ميديا",
+          "تصميم كاروسيل"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
       "id": "SM-08",
       "category": "social-media",
       "folder": "SM-08-The-art-of-dealing-with-customers-the-so-11-2026",
