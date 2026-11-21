@@ -1,6 +1,498 @@
 {
   "projects": [
     {
+      "id": "SM-08",
+      "category": "social-media",
+      "folder": "SM-08-The-art-of-dealing-with-customers-the-so-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "The art of dealing with customers - the social media carousel",
+        "description": "A professional series of 9 slides highlighting the skills of communicating professionally with clients, building trust, and setting clear boundaries to ensure business continuity.",
+        "details": "The project addresses the professional and administrative aspect in the life of an independent designer, explaining that the quality of design alone is not sufficient without clarity of agreement, commitment to time, and professional maturity in receiving modifications.\nThe monochrome style (black, white and greyscale) was chosen throughout to reflect formality, maturity and complete clarity, with high-contrast lighting and simple symbolic elements (such as chess pieces and contracts) giving the series a sophisticated, classic feel.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Copywriting",
+          "Carousel Layout",
+          "Typography",
+          "Visual Storytelling",
+          "Social Media Design"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "فن التعامل مع العملاء - كاروسيل التواصل الاجتماعي",
+        "description": "سلسلة مهنية من 9 شرائح تسلط الضوء على مهارات التواصل الاحترافي مع العملاء، وبناء الثقة، ووضع الحدود الواضحة لضمان استمرارية العمل.",
+        "details": "يتناول المشروع الجانب المهني والإداري في حياة المصمم المستقل، موضحًا أن جودة التصميم وحدها لا تكفي بدون وضوح الاتفاق، الالتزام بالوقت، والنضج المهني في استقبال التعديلات.\nتم اختيار أسلوب المونوكروم (الأبيض والأسود وتدرجات الرمادي) بالكامل ليعكس الرسمية، النضج، والوضوح التام، مع إضاءة عالية التباين وعناصر رمزية بسيطة (مثل قطع الشطرنج والعقود) تمنح السلسلة طابعًا كلاسيكيًا راقيًا.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "كتابة المحتوى",
+          "تصميم كاروسيل",
+          "الخطوط",
+          "السرد البصري",
+          "تصميم سوشيال ميديا"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
+      "id": "SM-07",
+      "category": "social-media",
+      "folder": "SM-07-Balance-of-value-social-media-carousel-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Balance of value - social media carousel",
+        "description": "An intellectual carousel consisting of 9 slides that discusses the difference between real-time numbers and trends and between real value and sustainable technical mastery.",
+        "details": "This project was designed to address designers and content makers about the “illusion of numbers,” and to emphasize that true value is measured by impact and quality of work, not by the number of views or likes. The visual composition relies on a balance between pure white and dark gray backgrounds with touches of cobalt blue, while using abstract and symbolic visual elements (such as a scale, a glass ball, and a tuning fork) that reflect the meanings of precision, stability and calm.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Typography",
+          "Visual Storytelling",
+          "Copywriting",
+          "Carousel Layout",
+          "Social Media Design"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "ميزان القيمة - كاروسيل التواصل الاجتماعي",
+        "description": "كاروسيل فكري مكون من 9 شرائح يناقش الفرق بين الأرقام اللحظية والتريند وبين القيمة الحقيقية والإتقان الفني المستدام.",
+        "details": "صُمم هذا المشروع لمخاطبة المصممين وصناع المحتوى حول \"وهم الأرقام\"، وتأكيد أن القيمة الحقيقية تُقاس بالأثر وجودة العمل وليس بعدد المشاهدات أو اللايكات. يعتمد التكوين البصري على التوازن بين الخلفيات البيضاء النقية والرمادي الداكن مع لمسات من الأزرق الكوبالتي، مع استخدام عناصر بصرية تجريدية ورمزية (مثل الميزان، الكرة الزجاجية، والشوكة الرنانة) تعكس معاني الدقة والثبات والهدوء.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "الخطوط",
+          "السرد البصري",
+          "كتابة المحتوى",
+          "تصميم كاروسيل",
+          "تصميم سوشيال ميديا"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
+      "id": "SM-06",
+      "category": "social-media",
+      "folder": "SM-06-The-art-of-montage-the-social-media-caro-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "The art of montage - the social media carousel",
+        "description": "A 9-slide educational series that explores the secrets of film editing, from rhythm and sound engineering to coloring and story telling.",
+        "details": "The project aims to correct the superficial view of montage and clarify that it is an art of telling stories and creating feelings and not just cutting and pasting. Each slide is designed to provide a golden foundation for editors and content creators in an inspiring and straightforward style.\nThe color palette was inspired by the warm cinematic atmosphere, combining charcoal black and warm white with cinematic orange, and employing montage and photography tools (such as clipboard, film strip, and lenses) with dramatic lighting that highlights the value of each element.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Carousel Layout",
+          "Copywriting",
+          "Visual Storytelling",
+          "Typography",
+          "Social Media Design"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "فن المونتاج - كاروسيل التواصل الاجتماعي",
+        "description": "سلسلة تعليمية من 9 شرائح تستعرض أسرار صناعة المونتاج السينمائي، بدءًا من الإيقاع وهندسة الصوت وحتى التلوين وسرد القصة.",
+        "details": "يهدف المشروع إلى تصحيح النظرة السطحية للمونتاج وتوضيح أنه فن لسرد القصص وصناعة المشاعر وليس مجرد قص ولزق. تم تصميم كل شريحة لتقدم قاعدة ذهبية للمونتيرين وصناع المحتوى بأسلوب ملهم ومباشر.\nاستلهمت لوحة الألوان من الأجواء السينمائية الدافئة، حيث تم الدمج بين الأسود الفحمي والأبيض الدافئ مع البرتقالي السينمائي، وتوظيف أدوات المونتاج والتصوير (مثل الكلاكيت، شريط الفيلم، والعدسات) بإضاءة درامية تبرز قيمة كل عنصر.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "تصميم كاروسيل",
+          "كتابة المحتوى",
+          "السرد البصري",
+          "الخطوط",
+          "تصميم سوشيال ميديا"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
+      "id": "SM-05",
+      "category": "social-media",
+      "folder": "SM-05-Business-Profile-Guide-Social-Media-Caro-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Business Profile Guide - Social Media Carousel",
+        "description": "A 9-slide educational carousel that shows designers and creatives how to build a professional portfolio that demonstrates competency and convinces clients in the market.",
+        "details": "The idea of this project came to provide practical and direct advice to designers about the difference between theoretical study and practical application, and the importance of presenting the way of thinking and choosing the strongest works instead of filling portfolios.\nThe design is characterized by a bold editorial style that relies on strong contrast between black and white with deep red as the primary focus color, and the use of expressive symbolic objects (such as the portfolio seal and files) with sharp typography that reflects rigor and professionalism.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Visual Storytelling",
+          "Typography",
+          "Copywriting",
+          "Carousel Layout",
+          "Social Media Design"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "دليل ملف الأعمال - كاروسيل التواصل الاجتماعي",
+        "description": "كاروسيل تعليمي مكون من 9 شرائح يوضح للمصممين والمبدعين كيفية بناء ملف أعمال احترافي يثبت الكفاءة ويقنع العملاء في السوق.",
+        "details": "جاءت فكرة هذا المشروع لتقديم نصائح عملية ومباشرة للمصممين حول الفرق بين الدراسة النظرية والتطبيق العملي، وأهمية عرض طريقة التفكير واختيار أقوى الأعمال بدلًا من حشو البورتفوليو.\nيتميز التصميم بأسلوب تحريري جريء يعتمد على التباين القوي بين الأبيض والأسود مع اللون الأحمر القاني كلون أساسي للتركيز، وتوظيف مجسمات رمزية معبرة (مثل ختم البورتفوليو والملفات) مع تيبوجرافي حاد يعكس الصرامة والاحترافية.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "السرد البصري",
+          "الخطوط",
+          "كتابة المحتوى",
+          "تصميم كاروسيل",
+          "تصميم سوشيال ميديا"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
+      "id": "SM-04",
+      "category": "social-media",
+      "folder": "SM-04-Behind-the-algorithm-the-social-media-ca-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Behind the algorithm - the social media carousel",
+        "description": "A 9-slide educational series that reveals the behind-the-scenes algorithms of social media platforms and how they guide our digital choices and daily interests.",
+        "details": "The project focuses on raising digital awareness around concepts such as the “illusion of choice,” “echo chamber,” and “behavioral analysis.” The goal was to articulate these psychological and digital ideas in a smart visual style that stimulates the viewer to think, interact, and memorize the content.\nA calm and modern color palette of off-white with touches of royal violet is used, combined with symbolic 3D elements (such as a compass, a maze, and a stopwatch) and a clean text layout that provides complete eye relief while reading.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Social Media Design",
+          "Carousel Layout",
+          "Typography",
+          "Visual Storytelling",
+          "Copywriting"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "خلف الخوارزمية - كاروسيل التواصل الاجتماعي",
+        "description": "سلسلة توعوية من 9 شرائح تكشف كواليس خوارزميات منصات التواصل الاجتماعي وكيف توجه اختياراتنا الرقمية واهتماماتنا اليومية.",
+        "details": "يركز المشروع على رفع الوعي الرقمي حول مفاهيم مثل \"وهم الاختيار\" و\"غرفة الصدى\" و\"التحليل السلوكي\". كان الهدف صياغة هذه الأفكار النفسية والرقمية بأسلوب بصري ذكي يحفز المشاهد على التفكير والتفاعل وحفظ المحتوى.\nاستُخدمت لوحة ألوان هادئة وعصرية تعتمد على الأبيض المائل للرمادي مع لمسات من اللون البنفسجي الملكي، مقترنة بعناصر ثلاثية الأبعاد رمزية (مثل البوصلة، المتاهة، وساعة الإيقاف) وتوزيع نظيف للنصوص يمنح العين راحة تامة أثناء القراءة.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "تصميم سوشيال ميديا",
+          "تصميم كاروسيل",
+          "الخطوط",
+          "السرد البصري",
+          "كتابة المحتوى"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
+      "id": "SM-03",
+      "category": "social-media",
+      "folder": "SM-03-Off-screen-the-social-media-carousel-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Off screen - the social media carousel",
+        "description": "A 9-slide awareness series calling for regaining focus and digital balance, breaking away from the trap of notifications and endless scrolling to return to real life.",
+        "details": "The project addresses the problem of digital distraction and isolation resulting from excessive smartphone use, and provides practical steps to restore awareness, productivity, and sleep quality.\nA soothing and refreshing color palette based on clean white and soothing mint green was used, with effects of frosted glass (Glassmorphism) and visual elements symbolizing calm, nature and time, creating a feeling of serenity and clarity in keeping with the project’s message.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Social Media Design",
+          "Carousel Layout",
+          "Visual Storytelling",
+          "Typography",
+          "Copywriting"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "خارج الشاشة - كاروسيل التواصل الاجتماعي",
+        "description": "سلسلة توعوية من 9 شرائح تدعو إلى استعادة التركيز والتوازن الرقمي، والتخلص من فخ الإشعارات والتمرير اللانهائي للعودة إلى الحياة الواقعية.",
+        "details": "يعالج المشروع مشكلة التشتت الرقمي والعزلة الناتجة عن الإفراط في استخدام الهواتف الذكية، ويقدم خطوات عملية لاستعادة الوعي والإنتاجية وجودة النوم.\nاستُخدمت لوحة ألوان مريحة ومنعشة تعتمد على الأبيض النظيف والأخضر النعناعي الهادئ، مع تأثيرات الزجاج المصنفر (Glassmorphism) وعناصر بصرية ترمز للهدوء والطبيعة والوقت، مما يخلق شعورًا بالسكينة والوضوح يتماشى مع رسالة المشروع.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "تصميم سوشيال ميديا",
+          "تصميم كاروسيل",
+          "السرد البصري",
+          "الخطوط",
+          "كتابة المحتوى"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
       "id": "SM-02",
       "category": "social-media",
       "folder": "SM-02-Next-Generation-Artificial-Intelligence--11-2026",
@@ -34,7 +526,53 @@
           "كتابة المحتوى"
         ],
         "date": "نوفمبر 2026"
-      }
+      },
+      "sizes": [
+        [
+          2400,
+          1350
+        ],
+        [
+          1922,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ],
+        [
+          1920,
+          2400
+        ]
+      ]
     },
     {
       "id": "SM-01",
