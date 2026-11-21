@@ -1,6 +1,42 @@
 {
   "projects": [
     {
+      "id": "SM-02",
+      "category": "social-media",
+      "folder": "SM-02-Next-Generation-Artificial-Intelligence--11-2026",
+      "imagesCount": 11,
+      "added": "2026-11-21",
+      "month": "2026-11",
+      "en": {
+        "title": "Next Generation Artificial Intelligence - Social Media Carousel",
+        "description": "A 9-slide tech carousel showcasing the latest AI developments for 2026, from intelligent agents and cinematic generation to local intelligence on devices.",
+        "details": "This project aims to simplify advanced technical concepts in the world of artificial intelligence (such as Multimodal, AI Agents, and On-Device AI) and transform them into attractive and easy-to-digest visual content for an Arab audience interested in technology and the future.\nThe project's visual identity was built on a futuristic character that combines deep dark backgrounds with neon blue lighting, with the use of three-dimensional objects and technical lines connected between the slides to create a streamlined browsing experience that reflects the development of technology.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Social Media Design",
+          "Carousel Layout",
+          "Visual Storytelling",
+          "Typography",
+          "Copywriting"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "الجيل القادم للذكاء الاصطناعي - كاروسيل التواصل الاجتماعي",
+        "description": "كاروسيل تقني مكون من 9 شرائح يستعرض أحدث تطورات الذكاء الاصطناعي لعام 2026، من الوكلاء الذكيين وتوليد السينما إلى الذكاء المحلي على الأجهزة.",
+        "details": "يهدف هذا المشروع إلى تبسيط المفاهيم التقنية المتقدمة في عالم الذكاء الاصطناعي (مثل Multimodal وAI Agents وOn-Device AI) وتحويلها إلى محتوى بصري جذاب وسهل الاستيعاب للجمهور العربي المهتم بالتكنولوجيا والمستقبل.\nتم بناء الهوية البصرية للمشروع على طابع مستقبلي (Futuristic) يدمج بين الخلفيات الداكنة العميقة والإضاءات الزرقاء النيونية، مع استخدام مجسمات ثلاثية الأبعاد وخطوط تقنية متصلة بين الشرائح لخلق تجربة تصفح انسيابية تعكس تطور التكنولوجيا.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "تصميم سوشيال ميديا",
+          "تصميم كاروسيل",
+          "السرد البصري",
+          "الخطوط",
+          "كتابة المحتوى"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
       "id": "SM-01",
       "category": "social-media",
       "folder": "SM-01-Egyptian-Koshari-04-2026",
