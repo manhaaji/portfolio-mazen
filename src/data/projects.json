@@ -1,6 +1,88 @@
 {
   "projects": [
     {
+      "id": "SM-10",
+      "category": "social-media",
+      "folder": "SM-10-Egypt-Urban-Vision-Social-Media-Carousel-11-2026",
+      "imagesCount": 11,
+      "sizes": [
+        [
+          3200,
+          1800
+        ],
+        [
+          2562,
+          3200
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ],
+        [
+          2160,
+          2700
+        ]
+      ],
+      "added": "2026-11-22",
+      "month": "2026-11",
+      "en": {
+        "title": "Egypt Urban Vision - Social Media Carousel",
+        "description": "A visual series consisting of 9 slides that highlights the most prominent national projects and modern urban landmarks in Egypt, in a luxurious editorial style that combines architectural photography and infographics.",
+        "details": "This project included the design of an integrated awareness and visual series that showcases the boom in urban projects in Egypt, such as the iconic tower, the Grand Egyptian Museum, New Alamein City, and the Cairo Monorail.\nThe main goal was to present these achievements in a luxurious, quick-to-read visual format that would arouse pride and attention on social media platforms. The design is based on a luxurious dark color palette that combines matte black and metallic gold, with architectural images framed within symmetrical geometric shapes and wide Arabic fonts that clearly highlight the numbers and main titles, giving each slide a modern documentary feel.",
+        "client": "Self-content / MAZEN KHALED (pilot project)",
+        "services": [
+          "Typography",
+          "Visual Storytelling",
+          "Copywriting",
+          "Carousel Layout",
+          "Social Media Design"
+        ],
+        "date": "November 2026"
+      },
+      "ar": {
+        "title": "رؤية مصر العمرانية - كاروسيل التواصل الاجتماعي",
+        "description": "سلسلة بصرية مكونة من 9 شرائح تسلط الضوء على أبرز المشاريع القومية والمعالم العمرانية الحديثة في مصر، بأسلوب تحريري فاخر يجمع بين التصوير المعماري والانفوجرافيك.",
+        "details": "تضمن هذا المشروع تصميم سلسلة توعوية وبصرية متكاملة تستعرض طفرة المشروعات العمرانية في مصر مثل البرج الأيقوني، المتحف المصري الكبير، مدينة العلمين الجديدة، ومونوريل القاهرة.\nكان الهدف الرئيسي تقديم هذه الإنجازات في قالب بصري فخم وسريع القراءة يثير الفخر والانتباه على منصات التواصل الاجتماعي. يعتمد التصميم على لوحة ألوان داكنة فاخرة تجمع بين الأسود المطفي والذهبي المعدني، مع تأطير الصور المعمارية داخل أشكال هندسية متناسقة وخطوط عربية عريضة تبرز الأرقام والعناوين الرئيسية بوضوح، مما يمنح كل شريحة طابعًا وثائقيًا عصريًا.",
+        "client": "محتوى ذاتي / MAZEN KHALED (مشروع تجريبي)",
+        "services": [
+          "الخطوط",
+          "السرد البصري",
+          "كتابة المحتوى",
+          "تصميم كاروسيل",
+          "تصميم سوشيال ميديا"
+        ],
+        "date": "نوفمبر 2026"
+      }
+    },
+    {
       "id": "SM-09",
       "category": "social-media",
       "folder": "SM-09-Brand-Building-Secrets-Social-Media-Caro-11-2026",
