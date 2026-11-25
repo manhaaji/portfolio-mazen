@@ -52,15 +52,23 @@ Error generating stack: `+l.message+`
     const FX = (W - FW) / 2, FY = (H - FH) / 2 - H * 0.02;
     const nW = list.length;
     const STAG = Math.min(0.07, 1.05 / Math.max(1, nW - 1));
-    let cols = 1, rows = nW, cw = 0, chh = 0;
+    const MAX_GH = H * (H > W ? 0.56 : 0.74);
+    let cols = 0, rows = nW, cw = 0, chh = 0;
     for (let c = 1; c <= nW; c++) {
       const r = Math.ceil(nW / c);
       let w2 = (W * 0.92 - (c - 1) * 10) / c;
       let h2 = w2 * 9 / 16;
-      const mh = (H * 0.74 - (r - 1) * 10) / r;
-      if (h2 > mh) { h2 = mh; w2 = h2 * 16 / 9; }
       if (w2 > 400) { w2 = 400; h2 = 225; }
-      if (w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
+      if (r * h2 + (r - 1) * 10 <= MAX_GH && w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
+    }
+    if (!cols) {
+      for (let c = 1; c <= nW; c++) {
+        const r = Math.ceil(nW / c);
+        const mh = (MAX_GH - (r - 1) * 10) / r;
+        let w2 = (W * 0.92 - (c - 1) * 10) / c;
+        let h2 = Math.min(w2 * 9 / 16, mh); w2 = h2 * 16 / 9;
+        if (w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
+      }
     }
     const gw = cols * cw + (cols - 1) * 10, gh = rows * chh + (rows - 1) * 10;
     const WOX = (W - gw) / 2, WOY = (H - gh) / 2;
@@ -75,13 +83,12 @@ Error generating stack: `+l.message+`
     const SIG_T0 = BLACK_T + 0.28;
     const DRAW_DUR = 3.2;
     const DRAW_T = SIG_T0 + 0.25, DEND = DRAW_T + DRAW_DUR;
-    const LOGO_T = DEND + 0.25;
     const END_FADE = DEND + 1.75, END_T = END_FADE + 0.6;
     const FRONT = nCin - 1;
 
     let sigCv = null, sigW = 0, sigX0 = 0, sigBaseY = 0, sigEndX = 0, sheenCv = null;
     function buildSig() {
-      const fs = Math.min(150, W * 0.16);
+      const fs = Math.min(150, W * 0.14);
       sigCv = document.createElement('canvas');
       sigCv.width = W; sigCv.height = H;
       const x = sigCv.getContext('2d');
@@ -93,7 +100,7 @@ Error generating stack: `+l.message+`
       x.shadowColor = 'rgba(212,175,55,.55)'; x.shadowBlur = fs * 0.16;
       x.fillText('Mazen Khaled', W / 2, H / 2);
       const m = x.measureText('Mazen Khaled');
-      sigW = m.width; sigX0 = W / 2 - sigW / 2; sigEndX = W / 2 + sigW / 2; sigBaseY = H / 2 - Math.round(H * 0.03);
+      sigW = m.width; sigX0 = W / 2 - sigW / 2; sigEndX = W / 2 + sigW / 2; sigBaseY = H / 2;
       sheenCv = document.createElement('canvas');
       sheenCv.width = W; sheenCv.height = H;
     }
@@ -107,8 +114,6 @@ Error generating stack: `+l.message+`
       im.decoding = 'async';
       im.src = p.src;
     })))).then(() => { ready = true; });
-    let logoImg = null;
-    { const li = new Image(); li.onload = () => { logoImg = li; }; li.onerror = () => {}; li.src = '/assets/img/logo-gold.png'; }
 
     for (let k = 1; k < nCin; k++) at(k * CIN_BEAT - 0.05, () => play('swish', .3, 1.5));
     at(WALL_T0, () => play('swish', .4, .85));
@@ -120,8 +125,6 @@ Error generating stack: `+l.message+`
     at(BLACK_T, () => play('boom', 1, 1));
     at(DRAW_T, () => play('bed', .45, 1));
     at(DEND - 0.25, () => play('pop', .5, 1.6));
-    at(LOGO_T, () => play('land', .45, 1.35));
-    at(LOGO_T + 0.5, () => play('tick', .3, 1.5));
 
     function drawInFrame(im, a) {
       if (!im || a <= 0) return;
@@ -338,26 +341,13 @@ Error generating stack: `+l.message+`
         ctx.quadraticCurveTo((x1 + x2) / 2, sigBaseY + 108, x2, sigBaseY + 88);
         ctx.stroke(); ctx.restore();
       }
-      if (logoImg) {
-        const lp = clamp01((t - LOGO_T) / 0.6);
-        if (lp > 0) {
-          const ls = 0.82 + 0.18 * eob(lp);
-          const lh = Math.min(64, H * 0.088) * ls;
-          const lw = lh * (logoImg.width / logoImg.height);
-          ctx.save();
-          ctx.globalAlpha = lp;
-          ctx.shadowColor = 'rgba(212,175,55,.55)'; ctx.shadowBlur = 22;
-          ctx.drawImage(logoImg, W / 2 - lw / 2, sigBaseY + 148 - lh / 2, lw, lh);
-          ctx.restore();
-        }
-      }
-      const p2 = clamp01((t - LOGO_T - 0.45) / 0.8);
+      const p2 = clamp01((t - DEND - 0.5) / 0.8);
       if (p2 > 0) {
         ctx.save(); ctx.globalAlpha = p2;
         ctx.fillStyle = 'rgba(212,175,55,.85)';
         ctx.font = 'italic 400 ' + Math.round(Math.min(22, W * 0.032)) + 'px Georgia,serif';
         ctx.textAlign = 'center';
-        ctx.fillText('design · motion · film', W / 2, sigBaseY + 218);
+        ctx.fillText('design · motion · film', W / 2, sigBaseY + 150);
         ctx.restore();
       }
       ctx.restore();
