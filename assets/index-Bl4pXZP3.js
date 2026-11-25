@@ -25,7 +25,7 @@ Error generating stack: `+l.message+`
   }
   return function (container, list, sfx, done) {
     const W = window.innerWidth, H = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
     const cv = document.createElement('canvas');
     cv.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:10003;background:' + BG;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -41,23 +41,16 @@ Error generating stack: `+l.message+`
     const FX = (W - FW) / 2, FY = (H - FH) / 2 - H * 0.02;
     const nW = list.length;
     const STAG = Math.min(0.07, 1.05 / Math.max(1, nW - 1));
-    const MAX_GH = H * (H > W ? 0.56 : 0.74);
+    const MAX_GH = H * (H > W ? 0.86 : 0.74);
     let cols = 0, rows = nW, cw = 0, chh = 0;
     for (let c = 1; c <= nW; c++) {
       const r = Math.ceil(nW / c);
       let w2 = (W * 0.92 - (c - 1) * 10) / c;
       let h2 = w2 * 9 / 16;
       if (w2 > 400) { w2 = 400; h2 = 225; }
-      if (r * h2 + (r - 1) * 10 <= MAX_GH && w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
-    }
-    if (!cols) {
-      for (let c = 1; c <= nW; c++) {
-        const r = Math.ceil(nW / c);
-        const mh = (MAX_GH - (r - 1) * 10) / r;
-        let w2 = (W * 0.92 - (c - 1) * 10) / c;
-        let h2 = Math.min(w2 * 9 / 16, mh); w2 = h2 * 16 / 9;
-        if (w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
-      }
+      const mh = (MAX_GH - (r - 1) * 10) / r;
+      if (h2 > mh) { h2 = mh; w2 = h2 * 16 / 9; }
+      if (w2 > cw) { cw = w2; chh = h2; cols = c; rows = r; }
     }
     const gw = cols * cw + (cols - 1) * 10, gh = rows * chh + (rows - 1) * 10;
     const WOX = (W - gw) / 2, WOY = (H - gh) / 2;
@@ -97,7 +90,7 @@ Error generating stack: `+l.message+`
         xo += cd.adv;
       }
       sigTL = Math.max(1, acc);
-      sheenCv = document.createElement('canvas'); sheenCv.width = W; sheenCv.height = H;
+      sheenCv = document.createElement('canvas'); sheenCv.width = Math.round(W * dpr); sheenCv.height = Math.round(H * dpr);
       sigReady = true;
     }
     function paintLetters(c2, alphaOf) {
@@ -109,7 +102,7 @@ Error generating stack: `+l.message+`
         const g = c2.createLinearGradient(0, (sigBaseY - sigFs * 0.8 - sigY0) / sigScale, 0, (sigBaseY + sigFs * 0.7 - sigY0) / sigScale);
         g.addColorStop(0, GOLD_HI); g.addColorStop(0.5, GOLD); g.addColorStop(1, '#b8860b');
         c2.fillStyle = g;
-        c2.shadowColor = 'rgba(212,175,55,.55)'; c2.shadowBlur = sigFs * 0.16;
+        c2.shadowColor = 'rgba(212,175,55,.4)'; c2.shadowBlur = sigFs * 0.09;
         L.conts.forEach(c => c2.fill(c.p2d));
         c2.restore();
       });
@@ -343,6 +336,7 @@ Error generating stack: `+l.message+`
       } else {
         const sh = clamp01((t - DEND) / 0.7);
         const sx2 = sheenCv.getContext('2d');
+        sx2.setTransform(dpr, 0, 0, dpr, 0, 0);
         sx2.clearRect(0, 0, W, H);
         paintLetters(sx2, () => 1);
         if (sh > 0 && sh < 1) {
@@ -354,7 +348,7 @@ Error generating stack: `+l.message+`
           sx2.fillRect(0, 0, W, H);
           sx2.globalCompositeOperation = 'source-over';
         }
-        ctx.drawImage(sheenCv, 0, 0);
+        ctx.drawImage(sheenCv, 0, 0, W, H);
       }
       const fp = clamp01((t - (DEND - 0.2)) / 0.4);
       if (fp > 0) {
@@ -369,15 +363,19 @@ Error generating stack: `+l.message+`
       ctx.restore();
       grain(ctx, W, H, 260);
     }
-    const t0 = performance.now();
+    let t0 = -1;
+    const startAbs = performance.now();
     function frame(ts) {
       if (killed) return;
-      const t = (ts - t0) / 1000;
-      if (!ready) {
-        ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
-        if (t < 4) { raf = requestAnimationFrame(frame); return; }
-        ready = true;
+      if (t0 < 0) {
+        if (!ready) {
+          ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+          if (ts - startAbs < 6000) { raf = requestAnimationFrame(frame); return; }
+          ready = true;
+        }
+        t0 = ts;
       }
+      const t = (ts - t0) / 1000;
       if (t >= END_T && !finished) {
         finished = true;
         try { done && done(); } catch (e) {}
